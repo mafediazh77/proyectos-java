@@ -27,15 +27,22 @@ public class Cuenta {
         this.nombre = nombre;
     }
    
-    public int getIdicuenta(){
+    public int getIdcuenta(){
         return idcuenta;   
     }
-    public void setIdicuenta(int idcuenta){
+    public void setIdcuenta(int idcuenta){
         this.idcuenta = idcuenta;
     } 
     
-    public double getBance(){
+    public double getBalance(){
         return balance;   
     }
     
+    public void addBalance(double deposito){
+        balance = balance + deposito;
+    }
+    
+    public void removeBalance(double retiro){
+        balance = (balance - retiro) - 5;
+    }
 }
