@@ -33,8 +33,7 @@ public class CuentaEmpresarial extends Cuenta {
 
     @Override
     public void removeBalance(double retiro){
-        super.removeBalance(retiro);
-        balance = (balance - 2);
+        balance = (balance - retiro) - 2;
     }
 
 }
