@@ -37,8 +37,6 @@ Throwable
         └── ...
 ```
 
-*Enlace de referencia: [Java API Documentation](https://docs.oracle.com/javase/10/docs/api/java/lang/package-tree.html)*
-
 ## ❓ ¿Por qué usar Excepciones?
 
 El modelo de tratamiento de excepciones permite manejar errores de manera **consistente** y **flexible**.
