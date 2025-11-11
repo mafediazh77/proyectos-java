@@ -101,6 +101,51 @@ métodoA() → métodoB() → métodoC() → EXCEPCIÓN
 
 La excepción se propaga hacia arriba hasta encontrar un bloque `catch` que la maneje.
 
+
+```java
+import java.util.InputMismatchException; // Importa excepción para errores de tipo de dato
+import java.util.Scanner;                // Importa la clase Scanner para leer datos
+
+public class Program {                   // Declaración de la clase principal
+
+    public static void main(String[] args) {  // Método principal del programa
+
+        method1();                       // Llamada al método 1
+
+        System.out.println("End of program"); // Mensaje final del programa
+    }
+
+    public static void method1() {       // Declaración del método 1
+        System.out.println("*** METHOD 1 START ***"); // Inicio del método 1
+        method2();                       // Llamada al método 2
+        System.out.println("*** METHOD 1 END ***");   // Fin del método 1
+    }
+
+    public static void method2() {       // Declaración del método 2
+        System.out.println("*** METHOD 2 START ***"); // Inicio del método 2
+        Scanner sc = new Scanner(System.in);         // Crea un lector para entrada de usuario
+
+        try {
+            String[] vect = sc.nextLine().split(" ");  // Lee una línea y la separa por espacios
+            int position = sc.nextInt();               // Lee un número entero
+            System.out.println(vect[position]);        // Imprime el elemento del vector en esa posición
+        }
+        catch (ArrayIndexOutOfBoundsException e) {     // Excepción si la posición no existe
+            System.out.println("Invalid position!");   // Mensaje de error
+            e.printStackTrace();                       // Imprime la traza del error
+            sc.next();                                 // Limpia el buffer del scanner
+        }
+        catch (InputMismatchException e) {             // Excepción si el usuario no ingresa un número
+            System.out.println("Input error!");        // Mensaje de error
+        }
+
+        sc.close();                                    // Cierra el Scanner
+        System.out.println("*** METHOD 2 END ***");    // Fin del método 2
+    }
+}
+```
+
+
 ## 🗃️ Bloque Finally
 
 - **Bloque opcional** que siempre se ejecuta
@@ -111,17 +156,25 @@ La excepción se propaga hacia arriba hasta encontrar un bloque `catch` que la m
 
 ```java
 FileInputStream file = null;
+
 try {
+    // Intenta abrir el archivo "archivo.txt"
     file = new FileInputStream("archivo.txt");
-    // Procesar archivo
+
+    // Aquí iría el código que procesa el archivo
+    // (leer bytes, convertir texto, etc.)
+
 } catch (IOException e) {
+    // Se ejecuta si ocurre algún error al abrir o procesar el archivo
     System.out.println("Error: " + e.getMessage());
+
 } finally {
-    // Siempre se ejecuta
-    if (file != null) {
+    // Este bloque SIEMPRE se ejecuta, ocurra o no un error
+    if (file != null) {  // Verifica que el archivo realmente se abrió
         try {
-            file.close();
+            file.close(); // Cierra el archivo correctamente
         } catch (IOException e) {
+            // Se ejecuta si ocurre un error al intentar cerrar el archivo
             System.out.println("Error cerrando archivo");
         }
     }
