@@ -261,7 +261,7 @@ public class HotelReservation {
 
 ### ✅ Solución 3 (Buena)
 **Tratamiento con Excepciones**
-- [Código de ejemplo en GitHub](https://github.com/acenelio/exceptions1-java)
+- [Código de ejemplo en GitHub](https://github.com/mafediazh77/proyectos-java/tree/main/exeptions/exceptions1-java)
 
 ## 🎯 Resumen de la Clase
 
@@ -341,7 +341,7 @@ Error en el retiro: Saldo insuficiente
 Error en el retiro: El valor excede el límite de retiro
 ```
 
-*Código completo disponible en: [GitHub - exceptions2-java](https://github.com/acenelio/exceptions2-java)*
+*Código completo disponible en: [GitHub - exceptions2-java](https://github.com/mafediazh77/proyectos-java/tree/main/exeptions/exceptions2-java)*
 
 ---
 
