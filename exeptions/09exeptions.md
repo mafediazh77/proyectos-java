@@ -20,21 +20,21 @@ Al ser lanzada, una excepción se propaga en la **pila de llamadas** de métodos
 ## 📊 Jerarquía de Excepciones de Java
 
 ```
-Throwable
-├── Error
-│   ├── OutOfMemoryError
-│   ├── StackOverflowError
-│   └── ...
-└── Exception
-    ├── IOException
-    │   ├── FileNotFoundException
-    │   └── EOFException
-    ├── SQLException
-    └── RuntimeException
-        ├── NullPointerException
-        ├── IllegalArgumentException
-        ├── ArrayIndexOutOfBoundsException
-        └── ...
+Throwable               ← clase base de todos los errores y excepciones en Java
+├── Error               ← errores graves del sistema o de la JVM (no manejables)
+│   ├── OutOfMemoryError        ← la JVM se queda sin memoria
+│   ├── StackOverflowError      ← recursión infinita o desbordamiento de la pila
+│   └── ...                     ← otros errores internos de la JVM
+└── Exception           ← situaciones que el programa puede manejar (manejables)
+    ├── IOException             ← errores de entrada/salida (archivos, red, etc.)
+    │   ├── FileNotFoundException   ← archivo no encontrado
+    │   └── EOFException            ← fin de archivo inesperado
+    ├── SQLException          ← errores al trabajar con bases de datos
+    └── RuntimeException      ← errores lógicos o de programación (en tiempo de ejecución)
+        ├── NullPointerException        ← intentar usar un objeto que es null
+        ├── IllegalArgumentException    ← argumento inválido pasado a un método
+        ├── ArrayIndexOutOfBoundsException ← índice fuera de los límites del arreglo
+        └── ...                         ← otras excepciones de ejecución como ArithmeticException, etc.
 ```
 
 ## ❓ ¿Por qué usar Excepciones?
@@ -179,26 +179,23 @@ try {
 }
 ```
 
+---
+
 ## 🛠️ Creando Excepciones Personalizadas
 
 ### Estructura Recomendada de Paquetes
 
 ```
-src/
-└── main/
-    └── java/
-        └── com/
-            └── proyecto/
-                ├── model/
-                │   ├── entities/
-                │   └── exceptions/
-                └── application/
+└── proyecto/
+    ├── entities/
+    └── exceptions/
+    └── application/
 ```
 
 ### Ejemplo de Excepción Personalizada
 
 ```java
-package com.proyecto.model.exceptions;
+package com.proyecto.exceptions;
 
 public class ReservationException extends Exception {
     public ReservationException(String message) {
@@ -341,6 +338,3 @@ Error en el retiro: El valor excede el límite de retiro
 
 *Código completo disponible en: [GitHub - exceptions2-java](https://github.com/mafediazh77/proyectos-java/tree/main/exeptions/exceptions2-java)*
 
----
-
-*Documento revisado y mejorado - Listo para uso en clase* 🎓
