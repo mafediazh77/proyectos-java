@@ -1,4 +1,3 @@
-ejercicio_00/entities/Cuenta.java
 package entities;
 
 public class Cuenta {

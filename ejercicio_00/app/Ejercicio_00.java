@@ -1,4 +1,3 @@
-ejercicio_00/app/Ejercicio_00.java
 package app;
 
 import entities.Cuenta;
