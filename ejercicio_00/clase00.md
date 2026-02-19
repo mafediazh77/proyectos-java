@@ -29,7 +29,8 @@ cd /home/segodimo/14java/proyectos-java/
 git status
 git add .
 git status
-git commit -m ""
+git commit -m "ejercicio_00 start"
+git status
 git log
 
 git pull
