@@ -3,7 +3,7 @@ package entities;
 public class Cuenta {
     private String nombre;
     private int idcuenta;
-    private double balance;
+    protected double balance;
 
     public Cuenta(String nombre, int idcuenta) {
         this.nombre = nombre;

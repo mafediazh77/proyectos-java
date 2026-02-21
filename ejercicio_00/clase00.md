@@ -6,6 +6,7 @@ cd /home/segodimo/obsout | term
 e /home/segodimo/obsout | term
 
 cd /home/segodimo/14java/proyectos-java/ejercicio_00/
+e /home/segodimo/15java/proyectos-java/ejercicio_00/ | term
 ```
 
 #  OPTION 1 (COMPILE e RUN)
