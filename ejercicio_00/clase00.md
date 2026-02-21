@@ -410,3 +410,186 @@ Se quiser, me diga:
 Que eu te digo **a forma mais segura** de fazer 👍
 
 
+Beleza — o **rebase aconteceu**, mas **você não mandou o Git trocar a mensagem**. O comportamento que você viu é exatamente o esperado nesse caso.
+
+Vamos direto ao ponto 👇
+
+---
+
+## ❌ O que aconteceu
+
+Quando você rodou:
+
+```bash
+git rebase -i HEAD~3
+```
+
+o editor abriu, **mas o commit continuou com `pick`**.
+Resultado: o Git reaplicou os commits **sem pedir para editar a mensagem**.
+
+Por isso a mensagem **não mudou**.
+
+---
+
+## ✅ O que você precisa fazer
+
+Você tem que marcar explicitamente o commit para edição da mensagem.
+
+### Passo a passo correto
+
+1. Rode novamente:
+
+```bash
+git rebase -i HEAD~3
+```
+
+2. No editor que abrir, você verá algo assim:
+
+```
+pick 87408cb provate thid verDados
+pick xxxx outro commit
+pick yyyy outro commit
+```
+
+3. **Troque `pick` por `reword` (ou só `r`) no commit desejado**:
+
+```
+reword 87408cb provate thid verDados
+pick xxxx outro commit
+pick yyyy outro commit
+```
+
+4. Salve e feche o editor
+
+5. O Git vai abrir outro editor → **aí sim você muda a mensagem**
+
+   ```
+   private this verDados
+   ```
+
+6. Salve e feche novamente
+
+Pronto. Agora o commit estará com a descrição nova.
+
+---
+
+## 🔍 Como confirmar
+
+Depois:
+
+```bash
+git log --oneline -3
+```
+
+Veja se a mensagem mudou.
+
+---
+
+## ⚠️ Se esse branch já foi enviado (push)
+
+Você **vai precisar forçar**:
+
+```bash
+git push --force-with-lease
+```
+
+(use isso, não `--force` puro)
+
+---
+
+### Resumo rápido
+
+* `pick` → não muda nada
+* `reword` → muda a mensagem
+* Seu rebase funcionou, só **faltou marcar o commit certo**
+
+Se quiser, cola aqui o conteúdo que aparece no editor do `rebase -i` que eu te digo **exatamente o que alterar**.
+
+
+Perfeito — **agora está do jeito certo** 👍
+Você fez exatamente o que precisava: marcou o commit com `reword`.
+
+Agora vamos ao **que falta** (provavelmente é aqui que você travou).
+
+---
+
+## O que deve acontecer a seguir
+
+Depois de salvar esse arquivo e fechar o editor:
+
+👉 **o Git abre automaticamente outro editor**
+👉 Esse editor é **para você mudar a mensagem do commit `87408cb`**
+
+Você vai ver algo assim:
+
+```text
+private this function verDados
+```
+
+Aí você:
+
+1. Corrige a mensagem (exemplo):
+
+   ```
+   private verDados method
+   ```
+2. Salva
+3. Fecha o editor
+
+---
+
+## Se o Git NÃO abriu o editor da mensagem
+
+Então o rebase ficou **pausado esperando você continuar**.
+
+Rode:
+
+```bash
+git rebase --continue
+```
+
+Isso vai:
+
+* abrir o editor da mensagem (se ainda não abriu), **ou**
+* finalizar o rebase se a mensagem já foi salva
+
+---
+
+## Como saber se deu certo
+
+Depois que terminar:
+
+```bash
+git log --oneline -5
+```
+
+Confirme se a mensagem do commit mudou.
+
+---
+
+## Se der algum erro
+
+* Conflito:
+
+  ```bash
+  git status
+  ```
+
+  Resolva → `git add .` → `git rebase --continue`
+
+* Quer desistir:
+
+  ```bash
+  git rebase --abort
+  ```
+
+---
+
+## Resumo curto
+
+* ✔ `reword` está correto
+* ✔ Agora **salva o arquivo**
+* ✔ Edita a mensagem quando o editor abrir
+* ✔ `git rebase --continue` se necessário
+
+Se quiser, cola aqui **a tela que aparece depois de salvar** que eu te digo exatamente o próximo comando.
