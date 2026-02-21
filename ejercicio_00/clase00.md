@@ -358,6 +358,7 @@ Se o commit está alguns passos atrás, use **rebase interativo**.
 1. Descubra quantos commits voltar (exemplo: 5):
 
 ```bash
+git rebase -i HEAD~4
 git rebase -i HEAD~5
 ```
 
