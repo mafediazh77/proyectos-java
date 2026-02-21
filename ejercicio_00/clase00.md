@@ -51,6 +51,7 @@ git commit --amend
 # tree
 ```bash
 cd /home/segodimo/14java/proyectos-java/ejercicio_00/
+cd /home/segodimo/14java/proyectos-java/ejercicio_00/ | term
 tree /home/segodimo/14java/proyectos-java/ejercicio_00/
 
 ├── app
@@ -317,5 +318,94 @@ java -version
 
 # .gitignore
 ejercicio_00/bin/
+
+
+**é possível mudar a descrição (mensagem) de um commit antigo**, mas **depende de duas coisas importantes**:
+
+1. **quão antigo é o commit**
+2. **se ele já foi enviado (push) para um repositório compartilhado**
+
+Vou te explicar de forma direta.
+
+---
+
+## ✅ Commit mais recente (o último)
+
+Se você só quer mudar a mensagem do **último commit**, é simples:
+
+```bash
+git commit --amend
+```
+
+* O editor abre com a mensagem atual
+* Você altera, salva e pronto
+* O hash do commit muda
+
+⚠️ Se esse commit **já foi enviado (push)**:
+
+```bash
+git push --force
+```
+
+(use com cuidado)
+
+---
+
+## ✅ Commit antigo (não é o último)
+
+Se o commit está alguns passos atrás, use **rebase interativo**.
+
+1. Descubra quantos commits voltar (exemplo: 5):
+
+```bash
+git rebase -i HEAD~5
+```
+
+2. Vai abrir uma lista tipo:
+
+```
+pick a1b2c3 Commit antigo
+pick d4e5f6 Outro commit
+```
+
+3. Troque `pick` por `reword` (ou `r`) no commit que você quer mudar:
+
+```
+reword a1b2c3 Commit antigo
+```
+
+4. Salve → o editor abre → edite a mensagem → salve de novo
+
+---
+
+## ⚠️ Atenção importante (isso é sério)
+
+* Isso **reescreve o histórico**
+* **NUNCA faça isso em commits que outras pessoas já puxaram**, a menos que todo mundo saiba
+* Se já foi enviado:
+
+```bash
+git push --force
+```
+
+ou, melhor:
+
+```bash
+git push --force-with-lease
+```
+
+---
+
+## Regra prática (guarde isso)
+
+* **Projeto só seu / branch local** → pode alterar
+* **Branch compartilhada (main, develop)** → pense duas vezes
+
+Se quiser, me diga:
+
+* se o commit já foi enviado
+* e se é um projeto só seu ou em equipe
+
+Que eu te digo **a forma mais segura** de fazer 👍
 
 
