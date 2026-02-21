@@ -179,6 +179,22 @@ getIdcuenta setIdcuenta
 - private - solo la clase que lo define
 - protected - mismo paquete e subclases ('Herencia')
 
+```bash
+    public void setBalance(double balance){
+        this.balance = balance;
+    }
+```
+
+```bash
+    public void addBalance(double deposito){
+        balance = balance + deposito;
+    }
+    
+    public void removeBalance(double retiro){
+        balance = (balance - retiro) - 5;
+    }
+```
+
 # HERENCIA
 
 cuenta
@@ -277,8 +293,8 @@ public void withdraw(double amount) {
 ```
 
 
-
 # POLIMORFISMO
+
 Em Programação Orientada a Objetos, polimorfismo é recurso que
 permite que variáveis de um mesmo tipo mais genérico possam
 apontar para objetos de tipos específicos diferentes, tendo assim
