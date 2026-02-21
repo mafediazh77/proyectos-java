@@ -7,8 +7,6 @@ public class Ejercicio_00 {
 
       Cuenta nomvariable = new Cuenta("Lucas", 4040); 
 
-      System.out.println(nomvariable.nombre);
-      System.out.println(nomvariable.idcuenta);
-
+      System.out.println(nomvariable.verDados());
     }
 }

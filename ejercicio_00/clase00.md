@@ -2,6 +2,9 @@ $$$$
 
 
 ```bash
+cd /home/segodimo/obsout | term
+e /home/segodimo/obsout | term
+
 cd /home/segodimo/14java/proyectos-java/ejercicio_00/
 ```
 
@@ -35,8 +38,8 @@ git log
 
 git pull
 git push
-git config pull.rebase false
 
+git config pull.rebase false
 git checkout nome-da-branch
 git pull origin nome-da-branch
 git fetch --all
@@ -143,6 +146,151 @@ public void verDados(){
     System.out.println("nombre " + nombre + " idcuenta " + idcuenta);
 }
 ```
+
+# SOBRECARGA
+### repetir metodos
+
+```bash
+
+public Cuenta(String nombre, int cuenta) {
+    this.nombre = nombre;
+    this.idcuenta = idcuenta;
+}
+
+public Cuenta(String nombre, int cuenta, double balance) {
+    this.nombre = nombre;
+    this.idcuenta = idcuenta;
+    this.balance = balance;
+}
+```
+
+# ENCAPSULAMIENT,
+### no podemos acceder directamente a los atributos
+
+getNombre setNombre
+
+getIdcuenta setIdcuenta
+
+#### getBalance #### setBalance
+
+## Modificadores de acesso
+- nada - mismo paquete
+- public - todas las clases
+- private - solo la clase que lo define
+- protected - mismo paquete e subclases ('Herencia')
+
+# HERENCIA
+
+cuenta
+
+cuentaAhorros
+```bash
+public class CuentaAhorros extends Cuenta {
+    private double tasaInteres;
+
+    public CuentaAhorros() {
+        super();
+    }  
+    public CuentaAhorros(String nombre, int idcuenta, double balance, double tasaInteres) {
+        super(nombre,idcuenta,balance);
+        this.tasaInteres = tasaInteres;   
+    }  
+
+```
+
+cuentaEmpresa
+```bash
+public class CuentaEmpresarial extends Cuenta {
+
+    private double limite;
+   
+    public CuentaEmpresarial(String nombre, int idcuenta, double balance, double limite) {
+        super(nombre,idcuenta,balance);
+        this.limite = limite;   
+    }  
+
+```
+# UPCASTING E DOWNCASTING
+
+## UPCASTING
+Cuenta para CuentaEmpresarial
+Cuenta para CuentaAhorros
+
+```bash
+Account acc1 = bacc;
+Account acc2 = new BusinessAccount(1003, "Bob", 0.0, 200.0);
+Account acc3 = new SavingsAccount(1004, "Anna", 0.0, 0.01);
+```
+
+## DOWNCASTING
+CuentaEmpresarial para Cuenta
+CuentaAhorros para Cuenta
+
+```bash
+BusinessAccount acc4 = (BusinessAccount)acc2;
+acc4.loan(100.0);
+
+BusinessAccount acc5 = (BusinessAccount)acc3;
+
+if (acc3 instanceof BusinessAccount) {
+    BusinessAccount acc5 = (BusinessAccount)acc3;
+    acc5.loan(200.0);
+    System.out.println("Loan!");
+}
+if (acc3 instanceof SavingsAccount) {
+    SavingsAccount acc5 = (SavingsAccount)acc3;
+    acc5.updateBalance();
+    System.out.println("Update!");
+}
+
+```
+
+# @Override - usar mismo método con regla diferente
+(Sobreposição, palavra super, anotação @Override)
+
+## Account:
+```bash
+
+public void withdraw(double amount) {
+    balance -= amount + 5.0;
+}
+```
+
+## SavingsAccount:
+```bash
+
+@Override
+public void withdraw(double amount) {
+    balance -= amount;
+}
+```
+
+## Palavra super
+```bash
+
+@Override
+public void withdraw(double amount) {
+    super.withdraw(amount); // usar o método padrão de la clase superior
+    balance -= 2.0;
+}
+
+```
+
+
+
+# POLIMORFISMO
+Em Programação Orientada a Objetos, polimorfismo é recurso que
+permite que variáveis de um mesmo tipo mais genérico possam
+apontar para objetos de tipos específicos diferentes, tendo assim
+comportamentos diferentes conforme cada tipo específico.
+
+Account x = new Account(1020, "Alex", 1000.0);
+Account y = new SavingsAccount(1023, "Maria", 1000.0, 0.01);
+
+x.withdraw(50.0);
+y.withdraw(50.0);
+
+
 
 ---
 # git

@@ -1,12 +1,16 @@
 package entities;
 
 public class Cuenta {
-    public String nombre;
-    public int idcuenta;
+    private String nombre;
+    private int idcuenta;
 
-    public Cuenta(String varnombre, int varidcuenta) {
-        nombre = varnombre;
-        idcuenta = varidcuenta;
+    public Cuenta(String nombre, int idcuenta) {
+        this.nombre = nombre;
+        this.idcuenta = idcuenta;
     }
+    
+    public String verDados(){
+        return "nombre " + nombre + "\nidcuenta " + idcuenta;
+    }
+    
 }
-
