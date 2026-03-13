@@ -175,3 +175,182 @@ Puedo hacer:
 ✅ Agregar colores ANSI para la terminal
 
 Solo dime qué quieres.
+
+
+---
+
+
+Beleza! Vamos fazer um exemplo bem pequeno só para entender a ideia do MVC (Model–View–Controller) em Java. A ideia é simples:
+
+Model → guarda os dados
+
+View → mostra algo para o usuário
+
+Controller → controla a lógica e conecta Model com View
+
+
+Vamos imaginar um programa que mostra o nome de uma pessoa.
+
+
+---
+
+1️⃣ Model (dados)
+
+Person.java
+
+public class Person {
+
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+Aqui só guardamos o dado (name).
+
+
+---
+
+2️⃣ View (visualização)
+
+PersonView.java
+
+public class PersonView {
+
+    public void showPerson(String name) {
+        System.out.println("Nome da pessoa: " + name);
+    }
+
+}
+
+A View apenas mostra informação.
+
+
+---
+
+3️⃣ Controller (controle)
+
+PersonController.java
+
+public class PersonController {
+
+    private Person model;
+    private PersonView view;
+
+    public PersonController(Person model, PersonView view) {
+        this.model = model;
+        this.view = view;
+    }
+
+    public void setPersonName(String name) {
+        model.setName(name);
+    }
+
+    public String getPersonName() {
+        return model.getName();
+    }
+
+    public void updateView() {
+        view.showPerson(model.getName());
+    }
+
+}
+
+O Controller:
+
+lê o Model
+
+manda dados para a View
+
+
+
+---
+
+4️⃣ Classe principal (Main)
+
+Program.java
+
+public class Program {
+
+    public static void main(String[] args) {
+
+        // cria o Model
+        Person model = new Person("Maria");
+
+        // cria a View
+        PersonView view = new PersonView();
+
+        // cria o Controller
+        PersonController controller = new PersonController(model, view);
+
+        // mostra os dados
+        controller.updateView();
+
+        // muda o dado
+        controller.setPersonName("João");
+
+        // mostra novamente
+        controller.updateView();
+    }
+
+}
+
+
+---
+
+🔎 Saída do programa
+
+Nome da pessoa: Maria
+Nome da pessoa: João
+
+
+---
+
+🧠 Visualmente fica assim
+
+Controller
+        /       \
+     Model     View
+    (dados)  (mostra)
+
+Fluxo:
+
+Main → Controller → Model
+Main → Controller → View
+
+
+---
+
+💡 Regra simples para lembrar MVC:
+
+Model → dados
+
+View → interface
+
+Controller → lógica
+
+
+---
+
+Se quiser, posso também te mostrar:
+
+um exemplo MVC com lista de produtos (mais real)
+
+um MVC com interface gráfica (Swing)
+
+ou MVC como usado no Spring Boot
+
+
+que ajuda MUITO a entender de verdade. 🚀
+
+
+---
