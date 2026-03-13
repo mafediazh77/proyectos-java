@@ -6,6 +6,7 @@ cd /home/segodimo/obsout | term
 e /home/segodimo/obsout | term
 
 cd /home/segodimo/14java/proyectos-java/ejercicio_00/
+cd /home/segodimo/14java/proyectos-java/ejercicio_00/ | term
 e /home/segodimo/15java/proyectos-java/ejercicio_00/ | term
 ```
 
@@ -594,3 +595,478 @@ Confirme se a mensagem do commit mudou.
 * ✔ `git rebase --continue` se necessário
 
 Se quiser, cola aqui **a tela que aparece depois de salvar** que eu te digo exatamente o próximo comando.
+
+---
+```bash
+cd /home/segodimo/50clf/
+python print_allfiles_path.py /home/segodimo/14java/proyectos-java/ejercicio_00/
+e out_print_allfiles.md
+
+me ajuda a explicar UPCASTING e DOWNCASTING:
+
+por favor revice todo meu código no arquivo out_print_allfiles.md,
+usando como base o arquivo out_print_allfiles.md,
+eu quero explicar UPCASTING e DOWNCASTING,
+eu estaba explicando como usar eles baseado en ejemplo:
+
+// UPCASTING - subclases atribuidas a superclases
+
+// Cuenta cuenta1 = ce;
+
+Cuenta cuenta2 = new CuentaEmpresarial("Pedro", 6060, 300, 2000);
+
+Cuenta cuenta3 = new CuentaAhorros("Juan", 7707, 300, 0.01);
+
+
+// DOWNCASTING
+
+// CuentaEmpresarial cuenta4 = cuenta2 <<PROBLEMA !!!>>
+// No puedo hacer que un tipo Cuenta sea un CuentaEmpresarial
+// No voy a poder usar la funcion prestamo - cuenta2.prestamo(100)
+// pq nos es un CuentaEmpresarial
+
+CuentaEmpresarial cuenta4 = (CuentaEmpresarial) cuenta2;
+cuenta4.prestamo(100);
+
+// CuentaEmpresarial cuenta5 = (CuentaAhorros) cuenta3; //ERROR
+//
+// Como Validar
+
+if(cuenta3 instanceof CuentaEmpresarial){
+  System.out.println("Es CuentaEmpresarial");
+  CuentaEmpresarial cuenta5 = (CuentaEmpresarial) cuenta3; //ERROR
+  CuentaAhorros cuentaAhorros = (CuentaAhorros) cuenta;
+  // cuentaAhorros.prestamo(100);
+}
+```
+
+
+Beleza — vou fazer **três coisas bem objetivas**, usando **exatamente o seu código** como base (ele está bom, só a explicação precisava ajuste):
+
+1. **Revisar sua explicação de UPCASTING**
+2. **Revisar sua explicação de DOWNCASTING**
+3. **Corrigir comentários e conceitos confusos**, sem mudar a ideia original
+
+Vou explicar **como professor**, mas no seu estilo 👍
+
+---
+
+# 1️⃣ UPCASTING (no seu código)
+
+### Conceito correto
+
+**Upcasting** é quando um objeto de uma **subclasse** é tratado como uma **superclasse**.
+
+📌 Isso é:
+
+* **automático**
+* **seguro**
+* **não precisa cast**
+
+---
+
+### No seu projeto
+
+Você tem:
+
+```java
+Cuenta           // superclasse
+CuentaAhorros    // subclasse
+CuentaEmpresarial // subclasse
+```
+
+Então isso é **UPCASTING** 👇
+
+```java
+Cuenta cuenta2 = new CuentaEmpresarial("Pedro", 6060, 300, 2000);
+Cuenta cuenta3 = new CuentaAhorros("Juan", 7707, 300);
+```
+
+💡 O que está acontecendo aqui?
+
+* O **objeto real** é `CuentaEmpresarial`
+* A **referência** é `Cuenta`
+
+Ou seja:
+
+> “Estou tratando uma CuentaEmpresarial como se fosse uma Cuenta”
+
+✔ Isso é permitido porque **toda CuentaEmpresarial É uma Cuenta**
+
+---
+
+### Consequência importante (você quase explicou certo)
+
+```java
+cuenta2.prestamo(100); // ❌ NÃO COMPILA
+```
+
+❌ **Por quê?**
+
+Porque:
+
+* O **tipo da variável** é `Cuenta`
+* `Cuenta` **não tem** o método `prestamo()`
+
+👉 Mesmo que o objeto REAL seja empresarial,
+👉 o compilador olha **apenas o tipo da referência**
+
+---
+
+### Comentário corrigido (melhor versão)
+
+```java
+// UPCASTING
+// Objeto de subclasse sendo atribuído a uma referência de superclasse
+Cuenta cuenta2 = new CuentaEmpresarial("Pedro", 6060, 300, 2000);
+Cuenta cuenta3 = new CuentaAhorros("Juan", 7707, 300);
+```
+
+---
+
+# 2️⃣ DOWNCASTING (aqui estava a maior confusão)
+
+### Conceito correto
+
+**Downcasting** é quando você força uma referência da **superclasse**
+a virar uma **subclasse específica**.
+
+📌 Downcasting:
+
+* **NÃO é automático**
+* **precisa cast**
+* **pode gerar erro em tempo de execução**
+
+---
+
+### Seu exemplo (correto)
+
+```java
+CuentaEmpresarial cuenta4 = (CuentaEmpresarial) cuenta2;
+cuenta4.prestamo(100);
+```
+
+✔ Isso funciona porque:
+
+* `cuenta2` **aponta para um objeto CuentaEmpresarial**
+* Então o cast é válido
+
+💡 Tradução simples:
+
+> “Eu sei que essa Cuenta, na verdade, é Empresarial”
+
+---
+
+### O comentário que precisa correção
+
+Você escreveu:
+
+```java
+// No puedo hacer que un tipo Cuenta sea un CuentaEmpresarial
+```
+
+❌ Isso está **conceitualmente errado**
+
+✅ O correto é:
+
+> **Não posso converter QUALQUER Cuenta em CuentaEmpresarial**
+> **Só posso se o objeto REAL for CuentaEmpresarial**
+
+---
+
+### Exemplo de erro real (muito bem que você tentou)
+
+```java
+CuentaEmpresarial cuenta5 = (CuentaEmpresarial) cuenta3; // ERROR
+```
+
+❌ Por quê?
+
+Porque:
+
+* `cuenta3` aponta para um **objeto CuentaAhorros**
+* Ele **NÃO é** CuentaEmpresarial
+
+👉 Isso compila
+👉 Mas **explode em tempo de execução (ClassCastException)**
+
+---
+
+# 3️⃣ instanceof (sua validação)
+
+Essa parte está **no caminho certo**, só precisa ajuste fino.
+
+### Seu código:
+
+```java
+if (cuenta3 instanceof CuentaEmpresarial) {
+    System.out.println("Es CuentaEmpresarial");
+    CuentaEmpresarial cuenta5 = (CuentaEmpresarial) cuenta3;
+}
+```
+
+✔ A ideia está correta
+❌ Mas **esse if nunca será verdadeiro**, porque `cuenta3` é `CuentaAhorros`
+
+---
+
+### Forma correta e completa
+
+```java
+if (cuenta3 instanceof CuentaEmpresarial) {
+    CuentaEmpresarial ce = (CuentaEmpresarial) cuenta3;
+    ce.prestamo(100);
+} else if (cuenta3 instanceof CuentaAhorros) {
+    CuentaAhorros ca = (CuentaAhorros) cuenta3;
+    ca.removeBalance(50);
+}
+```
+
+💡 Regra de ouro:
+
+> **Sempre use instanceof antes de fazer downcasting**
+
+---
+
+# 4️⃣ Resumo curto (para colocar no seu markdown)
+
+### UPCASTING
+
+* Subclasse → Superclasse
+* Automático
+* Seguro
+* Perde acesso a métodos específicos da subclasse
+
+```java
+Cuenta c = new CuentaEmpresarial(...);
+```
+
+---
+
+### DOWNCASTING
+
+* Superclasse → Subclasse
+* Precisa cast
+* Pode gerar erro
+* Use `instanceof`
+
+```java
+if (c instanceof CuentaEmpresarial) {
+    CuentaEmpresarial ce = (CuentaEmpresarial) c;
+}
+```
+
+---
+
+## ✅ Avaliação final (sem sugarcoat)
+
+* Seu **código está bom**
+* Seu **entendimento está 80% correto**
+* O erro era **linguagem conceitual**, não Java
+
+Se quiser, no próximo passo eu:
+
+* reescrevo **só a seção UPCASTING/DOWNCASTING do seu `.md`**, pronta pra estudar
+* ou te explico **polimorfismo ligado a casting**, que é o próximo nível 👌
+
+# POLIMORFISMO
+Perfeito 👍
+vou explicar **POLIMORFISMO usando exatamente o SEU código e o SEU exemplo**, sem inventar nada novo.
+
+Vou ser bem direto e didático.
+
+---
+
+# 🔁 POLIMORFISMO (com o seu exemplo)
+
+## 1️⃣ O que é polimorfismo (em uma frase)
+
+> **Polimorfismo é quando uma variável do tipo da superclasse (`Cuenta`) aponta para objetos de subclasses diferentes, e cada objeto se comporta do seu próprio jeito.**
+
+---
+
+## 2️⃣ Onde o polimorfismo aparece no SEU código
+
+Essas três classes:
+
+```java
+Cuenta            // superclasse
+CuentaAhorros     // subclasse
+CuentaEmpresarial // subclasse
+```
+
+E esse método na superclasse:
+
+```java
+public void removeBalance(double retiro){
+    balance = (balance - retiro) - 5;
+}
+```
+
+E o método sobrescrito na subclasse `CuentaAhorros`:
+
+```java
+@Override
+public void removeBalance(double retiro){
+    balance = (balance - retiro);
+}
+```
+
+👉 **Aqui nasce o polimorfismo**.
+
+---
+
+## 3️⃣ Exemplo clássico usando o SEU código (UPCASTING + POLIMORFISMO)
+
+Vamos imaginar isso no `main`:
+
+```java
+Cuenta c1 = new Cuenta("Lucas", 4040, 1000);
+Cuenta c2 = new CuentaAhorros("Pablo", 5577, 1000);
+```
+
+⚠️ Repare:
+
+* `c1` é uma `Cuenta`
+* `c2` **também é do tipo Cuenta**
+* mas **os objetos reais são diferentes**
+
+👉 Isso já é **UPCASTING**
+👉 Agora vem o **POLIMORFISMO**
+
+---
+
+## 4️⃣ Chamando o MESMO método
+
+```java
+c1.removeBalance(100);
+c2.removeBalance(100);
+```
+
+Mesma chamada
+Mesmo método
+Mesmo código no `main`
+
+❗ **Mas o resultado é diferente**
+
+---
+
+### O que acontece por baixo dos panos
+
+#### Para `c1` (Cuenta normal):
+
+```java
+balance = balance - 100 - 5;
+```
+
+➡ taxa de 5 aplicada
+
+---
+
+#### Para `c2` (CuentaAhorros):
+
+```java
+balance = balance - 100;
+```
+
+➡ **sem taxa**
+
+---
+
+💡 Tradução simples:
+
+> O Java decide **em tempo de execução** qual método usar,
+> baseado no **tipo real do objeto**,
+> não no tipo da variável.
+
+✔ Isso é **POLIMORFISMO**
+
+---
+
+## 5️⃣ Frase chave (guarde essa)
+
+> **A variável é do tipo `Cuenta`,
+> mas o comportamento depende do objeto real (`Cuenta` ou `CuentaAhorros`).**
+
+---
+
+## 6️⃣ Ligando com o seu código real
+
+No seu `Ejercicio_00.java` você já faz isso aqui:
+
+```java
+CuentaAhorros persona3 = new CuentaAhorros("Pablo", 5577, 100000);
+persona3.removeBalance(60000);
+```
+
+Agora imagine assim (forma polimórfica):
+
+```java
+Cuenta persona3 = new CuentaAhorros("Pablo", 5577, 100000);
+persona3.removeBalance(60000);
+```
+
+✔ Compila
+✔ Funciona
+✔ Chama o método da subclasse
+
+👉 **Isso é polimorfismo em ação**
+
+---
+
+## 7️⃣ O que NÃO é polimorfismo (confusão comum)
+
+❌ Isso **não é** polimorfismo:
+
+```java
+CuentaEmpresarial ce = new CuentaEmpresarial(...);
+ce.prestamo(100);
+```
+
+Isso é:
+
+* herança
+* chamada direta
+* **sem polimorfismo**
+
+👉 Polimorfismo **exige**:
+
+* superclasse
+* referência genérica
+* métodos sobrescritos (`@Override`)
+
+---
+
+## 8️⃣ Resumo curto (para seu markdown)
+
+### POLIMORFISMO
+
+* Variável do tipo da superclasse
+* Objeto de subclasses diferentes
+* Mesmo método → comportamentos diferentes
+* Decisão feita **em tempo de execução**
+
+```java
+Cuenta c1 = new Cuenta("Lucas", 4040, 1000);
+Cuenta c2 = new CuentaAhorros("Pablo", 5577, 1000);
+
+c1.removeBalance(100); // aplica taxa
+c2.removeBalance(100); // não aplica taxa
+```
+
+---
+
+## ✅ Avaliação honesta
+
+Você:
+
+* já entende **herança**
+* já entende **upcasting**
+* só faltava ligar isso ao **@Override**
+
+👉 **Polimorfismo = upcasting + override + chamada dinâmica**
+
+Se quiser, no próximo passo eu:
+
+* reescrevo **a seção POLIMORFISMO do seu `.md` pronta**
+* ou conecto **polimorfismo × downcasting (quando usar e quando evitar)**
