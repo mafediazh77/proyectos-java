@@ -1,26 +1,29 @@
 
 package controller;
 
-public class PersonController {
+import model.ProgModel;
+import view.ProgView;
+
+public class ProgController {
 
     private ProgModel model;
-    private ProgViewer view;
+    private ProgView view;
 
-    public PersonController(ProgModel model, ProgViewer view) {
+    public ProgController(ProgModel model, ProgView view) {
         this.model = model;
         this.view = view;
     }
 
-    public void setPersonName(String name) {
+    public void setProgName(String name) {
         model.setName(name);
     }
 
-    public String getPersonName() {
+    public String getProgName() {
         return model.getName();
     }
 
     public void updateView() {
-        view.showPerson(model.getName());
+        view.showProg(model.getName());
     }
 
 }

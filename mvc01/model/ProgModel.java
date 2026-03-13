@@ -1,10 +1,10 @@
-package model
+package model;
 
-public class Person {
+public class ProgModel {
 
     private String name;
 
-    public Person(String name) {
+    public ProgModel(String name) {
         this.name = name;
     }
 

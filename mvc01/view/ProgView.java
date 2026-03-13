@@ -1,9 +1,9 @@
 
 package view;
 
-public class PersonView {
+public class ProgView {
 
-    public void showPerson(String name) {
+    public void showProg(String name) {
         System.out.println("Nome da pessoa: " + name);
     }
 

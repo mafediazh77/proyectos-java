@@ -1,25 +1,21 @@
-import model.ProgModel
-import model.ProgViewer
-import model.ProgController
+import model.ProgModel;
+import view.ProgView;
+import controller.ProgController;
 
-public class Program {
+public class Main {
 
     public static void main(String[] args) {
 
-        // cria o Model
-        Person model = new Person("Maria");
+        ProgModel model = new ProgModel("Maria");
+        ProgView view = new ProgView();
 
-        // cria a View
-        PersonView view = new PersonView();
-
-        // cria o Controller
-        PersonController controller = new PersonController(model, view);
+        ProgController controller = new ProgController(model, view);
 
         // mostra os dados
         controller.updateView();
 
         // muda o dado
-        controller.setPersonName("João");
+        controller.setProgName("João");
 
         // mostra novamente
         controller.updateView();
